@@ -153,7 +153,7 @@ class SafeTPlugin(HW_PluginBase):
         return client
 
     def get_coin_name(self):
-        return "Testnet" if constants.net.TESTNET else "Bitcoin"
+        return "Testnet" if constants.net.TESTNET else "Bitcore"
 
     def initialize_device(self, device_id, wizard, handler):
         # Initialization method
@@ -401,7 +401,7 @@ class SafeTPlugin(HW_PluginBase):
     def tx_outputs(self, derivation, tx):
 
         def create_output_by_derivation():
-            script_type = self.get_trezor_output_script_type(info.script_type)
+            script_type = self.get_safet_output_script_type(info.script_type)
             if len(xpubs) == 1:
                 address_n = self.client_class.expand_path(derivation + "/%d/%d" % index)
                 txoutputtype = self.types.TxOutputType(

@@ -372,20 +372,20 @@ class Blockchain(util.PrintError):
             return False
         if prev_hash != header.get('prev_block_hash'):
             return False
-        try:
-            target = self.get_target(height // 2016 - 1)
-        except MissingHeader:
-            return False
-        try:
-            self.verify_header(header, prev_hash, target)
-        except BaseException as e:
-            return False
+        #try:
+        #    target = self.get_target(height // 2016 - 1)
+        #except MissingHeader:
+        #    return False
+        #try:
+        #    self.verify_header(header, prev_hash, target)
+        #except BaseException as e:
+        #    return False
         return True
 
     def connect_chunk(self, idx, hexdata):
         try:
             data = bfh(hexdata)
-            self.verify_chunk(idx, data)
+            #self.verify_chunk(idx, data)
             #self.print_error("validated chunk %d" % idx)
             self.save_chunk(idx, data)
             return True
@@ -399,6 +399,7 @@ class Blockchain(util.PrintError):
         n = self.height() // 2016
         for index in range(n):
             h = self.get_hash((index+1) * 2016 -1)
-            target = self.get_target(index)
+            #target = self.get_target(index)
+            target=0
             cp.append((h, target))
         return cp

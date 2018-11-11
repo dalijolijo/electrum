@@ -348,6 +348,11 @@ class WEX(ExchangeBase):
                 'RUB': Decimal(json_rub['btc_rur']['last']),
                 'USD': Decimal(json_usd['btc_usd']['last'])}
 
+class CoinMarketCap(ExchangeBase):
+    def get_rates(self, ccy):
+        json = self.get_json("api.coinmarketcap.com", "/v1/ticker/bitcore/?convert=" + ccy)
+        return {ccy: Decimal(json[0]["price_" + ccy.lower()])}
+
 
 class Winkdex(ExchangeBase):
 
