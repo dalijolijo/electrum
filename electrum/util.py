@@ -584,12 +584,12 @@ def time_difference(distance_in_time, include_seconds):
         return "over %d years" % (round(distance_in_minutes / 525600))
 
 mainnet_block_explorers = {
-    'bitsend.cc': ('https://insight.bitsend.cc/',
-                        {'tx': 'tx/', 'addr': 'address/'}),
+    'bitsend.cc': ('https://chainz.cryptoid.info/',
+                        {'tx': 'bsd/tx.dws?', 'addr': 'address.dws?'}),
     'cryptoID': ('https://chainz.cryptoid.info/',
                         {'tx': 'bsd/tx.dws?', 'addr': 'address.dws?'}),
-    'system default': ('https://insight.bitsend.cc/',
-                        {'tx': 'tx/', 'addr': 'address/'}),
+    'system default': ('https://chainz.cryptoid.info/',
+                        {'tx': 'bsd/tx.dws?', 'addr': 'address.dws?'}),
 }
 
 testnet_block_explorers = {
