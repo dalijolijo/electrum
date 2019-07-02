@@ -23,6 +23,7 @@ _logger = get_logger(__name__)
 try:
     import trezorlib
     import trezorlib.transport
+    from trezorlib.transport.bridge import BridgeTransport, call_bridge
 
     from .clientbase import TrezorClientBase
 
@@ -136,8 +137,17 @@ class TrezorPlugin(HW_PluginBase):
         else:
             raise LibraryFoundButUnusable(library_version=version)
 
-    def enumerate(self):
-        devices = trezorlib.transport.enumerate_devices()
+    def ienumerate(self):
+        # If there is a bridge, prefer that.
+        # On Windows, the bridge runs as Admin (and Electrum usually does not),
+        # so the bridge has better chances of finding devices. see #5420
+        # This also avoids duplicate entries.
+        try:
+            call_bridge("enumerate")
+        except Exception:
+            devices = trezorlib.transport.enumerate_devices()
+        else:
+            devices = BridgeTransport.enumerate()
         return [Device(path=d.get_path(),
                        interface_number=-1,
                        id_=d.get_path(),
